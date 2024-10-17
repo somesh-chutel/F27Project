@@ -1,0 +1,20 @@
+.jobs-card{
+
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid lightblue;
+    margin: 15px;
+    list-style: none;
+}
+
+.logo-title-cont{
+    display: flex;
+}
+
+.location-emptype-ppa-cont{
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}

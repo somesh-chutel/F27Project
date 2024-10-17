@@ -9,7 +9,10 @@ const Jobs = ()=> {
 
     const [allValues,setValues] = useState({
 
-        jobsArr : []
+        jobsArr : [],
+        empType : [],
+        sallryRange : "",
+        userSearch : ""
 
     });
 
@@ -19,7 +22,9 @@ const Jobs = ()=> {
 
         const getJobsList = async()=>{
 
-            const api = "https://apis.ccbp.in/jobs"; 
+            console.log( allValues.empType );
+
+            const api = `https://apis.ccbp.in/jobs?employment_type=${allValues.empType}&minimum_package=${allValues.sallryRange}&search=${allValues.userSearch}`; 
 
             const options = {
                 method : "Get",
@@ -52,7 +57,35 @@ const Jobs = ()=> {
 
         getJobsList();
 
-    },[])
+    },[allValues.userSearch,allValues.empType])
+
+
+
+
+    const onChangeUserIn = (e)=>{
+
+        if( e.key === "Enter"){
+
+            setValues({...allValues,userSearch : e.target.value});
+
+        }
+
+    }
+
+
+    const onChangeEmpType = (value,isChecked)=>{
+
+        if( isChecked === true){
+            setValues({...allValues,empType : [...allValues.empType,value]});
+        }
+        else{
+
+            setValues({...allValues,empType : allValues.empType.filter( each=> each !== value)});
+
+        }
+
+        
+    }
 
     return (
         <>
@@ -62,11 +95,18 @@ const Jobs = ()=> {
             <div className='row'>
 
                 <div className='col-5'>
-                    <FilterSection />
+                    <FilterSection empTypeFunc = {onChangeEmpType}/>
                 </div>
-                <div className='col-7'>
-                    <DisplayJobsCard/>
-                </div>
+                <ul className='col-7 d-flex flex-column align-items-center p-3 w-100'>
+                    <div>
+                        <input onKeyUp={onChangeUserIn} type="search" className='form-control' style={{width:"600px"}}/>
+                    </div>
+
+                    {
+                        allValues.jobsArr.map( (each)=> <DisplayJobsCard key={each.id} jobsDetails = {each}/>)
+                    }
+                    
+                </ul>
 
             </div>
 
