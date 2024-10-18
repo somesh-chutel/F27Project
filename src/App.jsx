@@ -4,6 +4,7 @@ import Login from "./components/login";
 import Jobs from "./components/jobs";
 import NotFound from "./components/notFound";
 import ProtectedRoute from "./components/protectedRoute/protectedRote";
+import JobsItemDetails from "./components/jobsItemDetails";
 
 const App = ()=> (
 
@@ -14,6 +15,8 @@ const App = ()=> (
             <Route path = "/login" element = {<Login/>}></Route>
 
             <Route path = "/jobs" element = {<ProtectedRoute Component = {Jobs}/>}></Route>
+
+            <Route path = "/jobs/:id" element = {<ProtectedRoute Component = {JobsItemDetails}/>}></Route>
 
             <Route path = "/*" element = {<NotFound/>}></Route>
 
